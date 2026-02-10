@@ -1,8 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { authClient } from "@/lib/auth-client";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,18 +10,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { motion } from "motion/react";
+import { authClient } from "@/lib/auth-client";
 import {
-  ExternalLink,
-  Key,
-  Package,
-  Loader2,
   CalendarDays,
   CreditCard,
+  ExternalLink,
+  Key,
+  Loader2,
+  Package,
   RefreshCw,
 } from "lucide-react";
+import { motion } from "motion/react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function get(obj: any, ...keys: string[]) {

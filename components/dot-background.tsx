@@ -16,8 +16,8 @@ const OPACITY_PULSE_SPEED = 0.8;
 interface Dot {
   baseX: number;
   baseY: number;
-  x: number;
-  y: number;
+  offsetX: number;
+  offsetY: number;
   vx: number;
   vy: number;
   baseOpacity: number;
@@ -54,8 +54,8 @@ function generateDots(width: number, height: number, spacing: number): Dot[] {
       dots.push({
         baseX: x,
         baseY: y,
-        x: x,
-        y: y,
+        offsetX: 0,
+        offsetY: 0,
         vx: 0,
         vy: 0,
         baseOpacity: opacity,
@@ -156,9 +156,9 @@ export default function DotBackground() {
       for (let i = 0; i < dots.length; i++) {
         const dot = dots[i];
 
-        // Compute target position (with repulsion)
-        let targetX = dot.baseX;
-        let targetY = dot.baseY;
+        // Compute target offset (with repulsion)
+        let targetOffsetX = 0;
+        let targetOffsetY = 0;
 
         if (mouseActive) {
           const dx = dot.baseX - mx;
@@ -169,18 +169,18 @@ export default function DotBackground() {
             const force =
               (1 - distance / REPULSION_RADIUS) * REPULSION_STRENGTH;
             const angle = Math.atan2(dy, dx);
-            targetX = dot.baseX + Math.cos(angle) * force;
-            targetY = dot.baseY + Math.sin(angle) * force;
+            targetOffsetX = Math.cos(angle) * force;
+            targetOffsetY = Math.sin(angle) * force;
           }
         }
 
-        // Spring physics toward target
-        const forceX = SPRING_STIFFNESS * (targetX - dot.x) - SPRING_DAMPING * dot.vx;
-        const forceY = SPRING_STIFFNESS * (targetY - dot.y) - SPRING_DAMPING * dot.vy;
+        // Spring physics toward target offset
+        const forceX = SPRING_STIFFNESS * (targetOffsetX - dot.offsetX) - SPRING_DAMPING * dot.vx;
+        const forceY = SPRING_STIFFNESS * (targetOffsetY - dot.offsetY) - SPRING_DAMPING * dot.vy;
         dot.vx += (forceX / SPRING_MASS) * dt;
         dot.vy += (forceY / SPRING_MASS) * dt;
-        dot.x += dot.vx * dt;
-        dot.y += dot.vy * dt;
+        dot.offsetX += dot.vx * dt;
+        dot.offsetY += dot.vy * dt;
 
         // Opacity: pulsing base + proximity boost
         const minOpacity = Math.max(dot.baseOpacity * 0.5, 0.3);
@@ -202,7 +202,7 @@ export default function DotBackground() {
 
         // Draw
         ctx.beginPath();
-        ctx.arc(dot.x, dot.y, DOT_SIZE / 2, 0, Math.PI * 2);
+        ctx.arc(dot.baseX + dot.offsetX, dot.baseY + dot.offsetY, DOT_SIZE / 2, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${dotColor}, ${opacity})`;
         ctx.fill();
       }
