@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const quantico = Rubik({
+const quantico = Roboto_Mono({
   variable: "--font-quantico",
   weight: "400"
 });

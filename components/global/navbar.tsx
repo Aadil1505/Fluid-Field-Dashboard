@@ -5,7 +5,6 @@ import { authClient } from "@/lib/auth-client";
 import { FloatingNav } from "@/components/ui/floating-navbar";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { Palette, Sparkles, DollarSign, LayoutDashboard, Home } from "lucide-react";
-import { Button } from "../ui/button";
 
 export default function Navbar() {
   const { data: session } = authClient.useSession();
@@ -28,14 +27,13 @@ export default function Navbar() {
       }
       authSlot={
         session ? (
-          <Button
-            variant={"ghost"}
+          <button
+            type="button"
             onClick={() => authClient.signOut()}
-            // className="border text-sm font-medium text-muted-foreground hover:text-foreground px-3 py-1.5 rounded-full hover:bg-muted/50 transition-colors"
-            className="rounded-full text-sm font-medium text-muted-foreground"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground px-3 py-1.5 rounded-full hover:bg-muted/50 transition-colors"
           >
             Sign out
-          </Button>
+          </button>
         ) : (
           <Link
             href="/auth/sign-in"
