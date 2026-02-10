@@ -1,8 +1,8 @@
-import Hero from "@/components/global/hero";
-import ThemeShowcase from "@/components/global/theme-showcase";
 import Features from "@/components/global/features";
-import Pricing from "@/components/global/pricing";
 import Footer from "@/components/global/footer";
+import Hero from "@/components/global/hero";
+import PricingGlass from "@/components/global/pricing-glass";
+import ThemeShowcase from "@/components/global/theme-showcase";
 import { MacbookScroll } from "@/components/ui/macbook-scroll";
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
       </div>
       <ThemeShowcase />
       <Features />
-      <Pricing />
+      <PricingGlass />
       <Footer />
     </>
   );

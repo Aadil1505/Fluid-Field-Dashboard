@@ -5,6 +5,7 @@ import { authClient } from "@/lib/auth-client";
 import { FloatingNav } from "@/components/ui/floating-navbar";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { Palette, Sparkles, DollarSign, LayoutDashboard, Home } from "lucide-react";
+import { Button } from "../ui/button";
 
 export default function Navbar() {
   const { data: session } = authClient.useSession();
@@ -27,20 +28,22 @@ export default function Navbar() {
       }
       authSlot={
         session ? (
-          <button
+          <Button
+            variant={"ghost"}
             onClick={() => authClient.signOut()}
-            className="border text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-4 py-2 rounded-full"
+            // className="border text-sm font-medium text-muted-foreground hover:text-foreground px-3 py-1.5 rounded-full hover:bg-muted/50 transition-colors"
+            className="border rounded-full text-sm font-medium text-muted-foreground"
           >
-            <span>Sign out</span>
-            <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent h-px" />
-          </button>
+            Sign out
+            <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-linear-to-r from-transparent via-blue-500 to-transparent h-px" />
+
+          </Button>
         ) : (
           <Link
             href="/auth/sign-in"
-            className="border text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-4 py-2 rounded-full"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground px-3 py-1.5 rounded-full hover:bg-muted/50 transition-colors"
           >
-            <span>Sign in</span>
-            <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent h-px" />
+            Sign in
           </Link>
         )
       }
