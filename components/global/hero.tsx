@@ -15,7 +15,7 @@ export default function Hero() {
         transition={{ duration: 0.6 }}
         className="max-w-2xl text-5xl font-bold tracking-tight sm:text-6xl"
       >
-        Your Mac, <AuroraText colors={["#f8f8f8", "#90D5FF"]}>Alive.</AuroraText>
+        Your Mac, <AuroraText className="italic" colors={["#f8f8f8", "#90D5FF"]}>Alive.</AuroraText>
       </motion.h1>
 
       <motion.p

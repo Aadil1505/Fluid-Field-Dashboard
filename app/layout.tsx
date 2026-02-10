@@ -1,7 +1,7 @@
 import DotBackground from "@/components/global/dot-background";
 import Navbar from "@/components/global/navbar";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Google_Sans_Flex, Quantico, Roboto, Roboto_Mono, Rubik, Silkscreen, Tektur } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 
@@ -13,6 +13,11 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const quantico = Rubik({
+  variable: "--font-quantico",
+  weight: "400"
 });
 
 export const metadata: Metadata = {
@@ -29,7 +34,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning >
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${quantico.className} antialiased`}
       >
         <ThemeProvider
           attribute="class"

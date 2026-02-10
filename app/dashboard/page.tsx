@@ -136,7 +136,7 @@ export default function DashboardPage() {
   const subStatus = sub ? get(sub, "status") : undefined;
 
   return (
-    <section className="px-6 py-24">
+    <section className="px-6 py-40">
       <div className="mx-auto max-w-2xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

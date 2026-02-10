@@ -32,11 +32,9 @@ export default function Navbar() {
             variant={"ghost"}
             onClick={() => authClient.signOut()}
             // className="border text-sm font-medium text-muted-foreground hover:text-foreground px-3 py-1.5 rounded-full hover:bg-muted/50 transition-colors"
-            className="border rounded-full text-sm font-medium text-muted-foreground"
+            className="rounded-full text-sm font-medium text-muted-foreground"
           >
             Sign out
-            <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-linear-to-r from-transparent via-blue-500 to-transparent h-px" />
-
           </Button>
         ) : (
           <Link
