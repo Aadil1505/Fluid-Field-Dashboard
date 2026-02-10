@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { FloatingNav } from "@/components/ui/floating-navbar";
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { Palette, Sparkles, DollarSign, LayoutDashboard, Home } from "lucide-react";
 
 export default function Navbar() {
@@ -21,6 +22,9 @@ export default function Navbar() {
   return (
     <FloatingNav
       navItems={navItems}
+      themeSlot={
+        <AnimatedThemeToggler className="text-muted-foreground hover:text-muted-foreground/80 p-2 rounded-full hover:bg-muted transition-colors [&>svg]:size-4" />
+      }
       authSlot={
         session ? (
           <button

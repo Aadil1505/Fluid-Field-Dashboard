@@ -11,6 +11,7 @@ import { JSX, ReactNode, useState } from "react";
 export const FloatingNav = ({
   navItems,
   authSlot,
+  themeSlot,
   className,
 }: {
   navItems: {
@@ -19,6 +20,7 @@ export const FloatingNav = ({
     icon?: JSX.Element;
   }[];
   authSlot?: ReactNode;
+  themeSlot?: ReactNode;
   className?: string;
 }) => {
   const { scrollYProgress } = useScroll();
@@ -70,6 +72,7 @@ export const FloatingNav = ({
             <span className="hidden sm:block text-sm">{navItem.name}</span>
           </a>
         ))}
+        {themeSlot}
         {authSlot}
       </motion.div>
     </AnimatePresence>

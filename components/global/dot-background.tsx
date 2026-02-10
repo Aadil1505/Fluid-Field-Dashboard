@@ -4,7 +4,7 @@ import { useEffect, useRef, useCallback } from "react";
 
 const REPULSION_RADIUS = 80;
 const REPULSION_STRENGTH = 20;
-const DOT_SIZE = 2;
+const DOT_SIZE = 3;
 const DOT_SPACING = 16;
 const SPRING_STIFFNESS = 300;
 const SPRING_DAMPING = 30;

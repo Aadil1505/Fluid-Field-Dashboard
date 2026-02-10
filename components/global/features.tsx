@@ -54,7 +54,7 @@ export default function Features() {
           transition={{ duration: 0.5 }}
           className="text-center text-3xl font-bold tracking-tight"
         >
-          Built for your desktop
+          Built for your Mac
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
