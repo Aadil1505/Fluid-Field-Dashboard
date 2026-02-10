@@ -1,20 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { authClient } from "@/lib/auth-client";
-import { Button } from "@/components/ui/button";
+import {
+  LiquidGlassCard
+} from "@/components/kokonutui/liquid-glass-card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { authClient } from "@/lib/auth-client";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Button } from "../ui/button";
 
 export default function AuthForm({
   mode,
@@ -65,59 +60,66 @@ export default function AuthForm({
   };
 
   return (
-    <div className="flex min-h-[80vh] items-center justify-center px-6">
-      <Card className="w-full max-w-sm">
-        <CardHeader>
-          <CardTitle>{isSignUp ? "Create account" : "Welcome back"}</CardTitle>
-          <CardDescription>
+    <div className="flex items-center justify-center px-6 py-40">
+      <LiquidGlassCard className="w-full max-w-sm rounded-3xl border border-border/60 bg-linear-to-br from-background to-secondary shadow-xl">
+        <div className="mb-6">
+          <h2 className="font-semibold text-2xl text-foreground">
+            {isSignUp ? "Create account" : "Welcome back"}
+          </h2>
+          <p className="mt-1 text-sm text-muted-foreground">
             {isSignUp
               ? "Enter your details to get started."
               : "Sign in to your account."}
-          </CardDescription>
-        </CardHeader>
-        <form onSubmit={handleSubmit}>
-          <CardContent className="space-y-4">
-            {isSignUp && (
-              <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Your name"
-                  required
-                />
-              </div>
-            )}
+          </p>
+        </div>
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {isSignUp && (
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="name">Name</Label>
               <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Your name"
                 required
+                className="border-border bg-background/50 backdrop-blur-sm"
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                required
-                minLength={8}
-              />
-            </div>
-            {error && (
-              <p className="text-sm text-destructive">{error}</p>
-            )}
-          </CardContent>
-          <CardFooter className="flex flex-col gap-4">
-            <Button type="submit" className="w-full" disabled={loading}>
+          )}
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              required
+              className="border-border bg-background/50 backdrop-blur-sm"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
+              required
+              minLength={8}
+              className="border-border bg-background/50 backdrop-blur-sm"
+            />
+          </div>
+          {error && (
+            <p className="text-sm text-destructive">{error}</p>
+          )}
+          <div className="flex flex-col gap-4 pt-2">
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={loading}
+            >
               {loading
                 ? isSignUp
                   ? "Creating account..."
@@ -126,13 +128,13 @@ export default function AuthForm({
                   ? "Create account"
                   : "Sign in"}
             </Button>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-center text-sm text-muted-foreground">
               {isSignUp ? (
                 <>
                   Already have an account?{" "}
                   <Link
                     href="/auth/sign-in"
-                    className="text-foreground underline underline-offset-4"
+                    className="font-medium text-foreground underline underline-offset-4"
                   >
                     Sign in
                   </Link>
@@ -142,16 +144,16 @@ export default function AuthForm({
                   Don&apos;t have an account?{" "}
                   <Link
                     href="/auth/sign-up"
-                    className="text-foreground underline underline-offset-4"
+                    className="font-medium text-foreground underline underline-offset-4"
                   >
                     Sign up
                   </Link>
                 </>
               )}
             </p>
-          </CardFooter>
+          </div>
         </form>
-      </Card>
+      </LiquidGlassCard>
     </div>
   );
 }
