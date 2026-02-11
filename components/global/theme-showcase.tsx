@@ -63,7 +63,7 @@ export default function ThemeShowcase() {
           transition={{ duration: 0.5 }}
           className="text-center text-3xl font-bold tracking-tight"
         >
-          7 themes. Infinite moods.
+          10 Themes. Infinite moods.
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}

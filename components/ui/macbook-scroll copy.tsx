@@ -21,31 +21,17 @@ import {
   IconVolume3,
   IconWorld,
 } from "@tabler/icons-react";
-import { MotionValue, motion, useScroll, useTransform, useInView } from "motion/react";
+import { MotionValue, motion, useScroll, useTransform } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
-
-type VideoItem = {
-  name: string;
-  file: string;
-};
 
 
 export const MacbookScroll = ({
   src,
-  videos,
   showGradient,
   title,
   badge,
 }: {
   src?: string;
-  videos?: VideoItem[];
   showGradient?: boolean;
   title?: string | React.ReactNode;
   badge?: React.ReactNode;
@@ -103,7 +89,6 @@ export const MacbookScroll = ({
       {/* Lid */}
       <Lid
         src={src}
-        videos={videos}
         scaleX={scaleX}
         scaleY={scaleY}
         rotate={rotate}
@@ -143,53 +128,13 @@ export const Lid = ({
   rotate,
   translate,
   src,
-  videos,
 }: {
   scaleX: MotionValue<number>;
   scaleY: MotionValue<number>;
   rotate: MotionValue<number>;
   translate: MotionValue<number>;
   src?: string;
-  videos?: VideoItem[];
 }) => {
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(carouselRef, { amount: 0.3 });
-
-  useEffect(() => {
-    if (!api) return;
-
-    setCurrent(api.selectedScrollSnap());
-
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap());
-    });
-  }, [api]);
-
-  // Play/pause videos based on current slide AND visibility
-  useEffect(() => {
-    if (!videos) return;
-
-    videoRefs.current.forEach((video, index) => {
-      if (video) {
-        if (index === current && isInView) {
-          video.play();
-        } else {
-          video.pause();
-          if (index !== current) {
-            video.currentTime = 0;
-          }
-        }
-      }
-    });
-  }, [current, videos, isInView]);
-
-  const autoplayPlugin = useRef(
-    Autoplay({ delay: 5000, stopOnInteraction: false })
-  );
-
   return (
     <div className="relative [perspective:800px]">
       <div
@@ -207,6 +152,7 @@ export const Lid = ({
           className="absolute inset-0 flex items-center justify-center rounded-lg bg-[#010101]"
         >
           <span className="text-white">
+            {/* <AceternityLogo /> */}
             FluidField
           </span>
         </div>
@@ -223,79 +169,11 @@ export const Lid = ({
         className="absolute inset-0 h-96 w-[32rem] rounded-2xl bg-[#010101] p-2"
       >
         <div className="absolute inset-0 rounded-lg bg-[#272729]" />
-
-        {videos && videos.length > 0 ? (
-          <Carousel
-            ref={carouselRef}
-            setApi={setApi}
-            opts={{ loop: true }}
-            plugins={[autoplayPlugin.current]}
-            className="absolute inset-0 rounded-lg overflow-hidden group"
-          >
-            <CarouselContent className="h-full m-0">
-              {videos.map((video, index) => (
-                <CarouselItem key={video.file} className="h-full p-0">
-                  <video
-                    ref={(el) => { videoRefs.current[index] = el; }}
-                    src={`/videos/${video.file}`}
-                    loop
-                    muted
-                    playsInline
-                    preload={index === 0 ? "auto" : "none"}
-                    className="h-full w-full object-cover object-left"
-                  />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-
-            {/* Video title */}
-            <div className="absolute bottom-3 left-3 z-10">
-              <span className="text-xs font-medium text-white/80 bg-black/30 backdrop-blur-sm px-2 py-1 rounded">
-                {videos[current]?.name}
-              </span>
-            </div>
-
-            {/* Navigation arrows */}
-            <button
-              onClick={() => api?.scrollPrev()}
-              className="absolute left-2 top-1/2 -translate-y-1/2 z-10 h-8 w-8 flex items-center justify-center rounded-full bg-black/40 text-white/70 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/60 hover:text-white"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="m15 18-6-6 6-6"/>
-              </svg>
-            </button>
-            <button
-              onClick={() => api?.scrollNext()}
-              className="absolute right-2 top-1/2 -translate-y-1/2 z-10 h-8 w-8 flex items-center justify-center rounded-full bg-black/40 text-white/70 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/60 hover:text-white"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="m9 18 6-6-6-6"/>
-              </svg>
-            </button>
-
-            {/* Dot indicators */}
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
-              {videos.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => api?.scrollTo(index)}
-                  className={cn(
-                    "h-1.5 rounded-full transition-all duration-300",
-                    current === index
-                      ? "w-5 bg-white"
-                      : "w-1.5 bg-white/40 hover:bg-white/60"
-                  )}
-                />
-              ))}
-            </div>
-          </Carousel>
-        ) : (
-          <img
-            src={src as string}
-            alt="macbook screen"
-            className="absolute inset-0 h-full w-full rounded-lg object-cover object-left-top"
-          />
-        )}
+        <img
+          src={src as string}
+          alt="aceternity logo"
+          className="absolute inset-0 h-full w-full rounded-lg object-cover object-left-top"
+        />
       </motion.div>
     </div>
   );

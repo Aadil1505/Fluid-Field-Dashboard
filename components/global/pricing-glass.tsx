@@ -45,7 +45,7 @@ export default function PricingGlass() {
           transition={{ duration: 0.5 }}
           className="text-center"
         >
-          <h2 className="text-3xl font-bold tracking-tight">Simple pricing</h2>
+          <h2 className="text-3xl font-bold tracking-tight">Simple Pricing</h2>
           <p className="mt-3 text-muted-foreground">
             One purchase, everything included. Less than a coffee.
           </p>

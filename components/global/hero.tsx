@@ -24,8 +24,8 @@ export default function Hero() {
         transition={{ duration: 0.6, delay: 0.15 }}
         className="mt-6 max-w-lg text-lg text-muted-foreground"
       >
-        GPU-accelerated live wallpapers for macOS. 7 physics-driven themes that
-        react to your cursor, span every display, and never skip a frame.
+        GPU-accelerated live wallpapers for MacOS. 10 physics-driven themes that
+        react to your cursor, breathe, and span every display.
       </motion.p>
 
       <motion.div
