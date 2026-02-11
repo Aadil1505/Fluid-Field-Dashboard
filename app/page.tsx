@@ -28,7 +28,6 @@ export default function Home() {
       <ThemeShowcase />
       <Features />
       <PricingGlass />
-      <Footer />
     </>
   );
 }

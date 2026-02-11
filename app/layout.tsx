@@ -1,9 +1,10 @@
 import DotBackground from "@/components/global/dot-background";
+import Footer from "@/components/global/footer";
 import Navbar from "@/components/global/navbar";
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Google_Sans_Flex, Quantico, Roboto, Roboto_Mono, Rubik, Silkscreen, Tektur } from "next/font/google";
-import "./globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono, Roboto_Mono } from "next/font/google";
+import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,6 +48,7 @@ export default function RootLayout({
           <div className="relative" style={{ zIndex: 1 }}>
             <Navbar />
             <main>{children}</main>
+            <Footer />
           </div>
         </ThemeProvider>
       </body>

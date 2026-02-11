@@ -150,7 +150,7 @@ export default function PricingGlass() {
                     </Badge>
                   </div>
                   <span className="text-4xl font-bold text-foreground">
-                    $39.00
+                    $39.99
                   </span>
                   <span className="ml-1 text-muted-foreground">One Time</span>
                 </div>

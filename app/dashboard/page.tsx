@@ -2,24 +2,13 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { LiquidGlassCard } from "@/components/kokonutui/liquid-glass-card";
 import { authClient } from "@/lib/auth-client";
 import {
   CalendarDays,
   Check,
-  Copy,
   CreditCard,
   ExternalLink,
-  Eye,
-  EyeOff,
   Infinity,
   Key,
   Loader2,
@@ -64,8 +53,6 @@ export default function DashboardPage() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [customerState, setCustomerState] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [showLicenseKey, setShowLicenseKey] = useState(false);
-  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (sessionPending) return;
@@ -176,13 +163,17 @@ export default function DashboardPage() {
           transition={{ duration: 0.4, delay: 0.1 }}
           className="mt-8 space-y-6"
         >
-          <Card>
-            <CardHeader>
+          <LiquidGlassCard
+            glassSize="lg"
+            className="rounded-3xl border border-border/60 bg-linear-to-br from-primary-foreground to-bg-card shadow-xl"
+          >
+            {/* Header */}
+            <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="flex items-center gap-2">
+                <div className="flex items-center gap-2">
                   <Package className="size-5" />
-                  FluidField
-                </CardTitle>
+                  <h3 className="text-xl font-semibold text-foreground">FluidField</h3>
+                </div>
                 <Badge variant={hasActivePurchase ? "default" : "secondary"}>
                   {hasActivePurchase
                     ? hasLifetime && !sub
@@ -191,141 +182,128 @@ export default function DashboardPage() {
                     : "No purchase"}
                 </Badge>
               </div>
-              <CardDescription>
+              <p className="text-sm text-muted-foreground">
                 {hasActivePurchase
                   ? hasLifetime && !sub
                     ? "You have lifetime access. Enjoy all themes and features forever."
                     : "Your license is active. You have full access to all themes and features."
                   : "You haven't purchased FluidField yet."}
-              </CardDescription>
-            </CardHeader>
+              </p>
+            </div>
 
             {hasActivePurchase && sub && (
               <>
-                <Separator />
-                <CardContent className="pt-6">
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-1.5 text-muted-foreground">
-                        <CreditCard className="size-3.5" />
-                        Amount
-                      </div>
-                      <p className="font-medium">
-                        {subAmount !== undefined
-                          ? `${formatAmount(subAmount, subCurrency)} / ${subInterval ?? "month"}`
-                          : "—"}
-                      </p>
+                <div className="my-6 h-px bg-linear-to-r from-transparent via-border to-transparent" />
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-1.5 text-muted-foreground">
+                      <CreditCard className="size-3.5" />
+                      Amount
                     </div>
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-1.5 text-muted-foreground">
-                        <RefreshCw className="size-3.5" />
-                        Status
-                      </div>
-                      <p className="font-medium capitalize">{subStatus ?? "—"}</p>
-                    </div>
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-1.5 text-muted-foreground">
-                        <CalendarDays className="size-3.5" />
-                        Current period
-                      </div>
-                      <p className="font-medium">
-                        {formatDate(subPeriodStart)} — {formatDate(subPeriodEnd)}
-                      </p>
-                    </div>
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-1.5 text-muted-foreground">
-                        <CalendarDays className="size-3.5" />
-                        Subscribed since
-                      </div>
-                      <p className="font-medium">{formatDate(subStartedAt)}</p>
-                    </div>
+                    <p className="font-medium text-foreground">
+                      {subAmount !== undefined
+                        ? `${formatAmount(subAmount, subCurrency)} / ${subInterval ?? "month"}`
+                        : "—"}
+                    </p>
                   </div>
-                </CardContent>
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-1.5 text-muted-foreground">
+                      <RefreshCw className="size-3.5" />
+                      Status
+                    </div>
+                    <p className="font-medium capitalize text-foreground">{subStatus ?? "—"}</p>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-1.5 text-muted-foreground">
+                      <CalendarDays className="size-3.5" />
+                      Current period
+                    </div>
+                    <p className="font-medium text-foreground">
+                      {formatDate(subPeriodStart)} — {formatDate(subPeriodEnd)}
+                    </p>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-1.5 text-muted-foreground">
+                      <CalendarDays className="size-3.5" />
+                      Subscribed since
+                    </div>
+                    <p className="font-medium text-foreground">{formatDate(subStartedAt)}</p>
+                  </div>
+                </div>
               </>
             )}
 
             {hasActivePurchase && hasLifetime && !sub && (
               <>
-                <Separator />
-                <CardContent className="pt-6">
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-1.5 text-muted-foreground">
-                        <Infinity className="size-3.5" />
-                        Plan
-                      </div>
-                      <p className="font-medium flex items-center gap-1.5">
-                        Lifetime
-                        <Sparkles className="size-3.5 text-primary" />
-                      </p>
+                <div className="my-6 h-px bg-linear-to-r from-transparent via-border to-transparent" />
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-1.5 text-muted-foreground">
+                      <Infinity className="size-3.5" />
+                      Plan
                     </div>
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-1.5 text-muted-foreground">
-                        <CreditCard className="size-3.5" />
-                        Amount paid
-                      </div>
-                      <p className="font-medium">
-                        {formatAmount(orderAmount, orderCurrency)}
-                      </p>
-                    </div>
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-1.5 text-muted-foreground">
-                        <Check className="size-3.5" />
-                        Status
-                      </div>
-                      <p className="font-medium text-green-600 dark:text-green-400">
-                        Lifetime access
-                      </p>
-                    </div>
-                    {/* <div className="space-y-1">
-                      <div className="flex items-center gap-1.5 text-muted-foreground">
-                        <CalendarDays className="size-3.5" />
-                        Purchased on
-                      </div>
-                      <p className="font-medium">{formatDate(orderCreatedAt)}</p>
-                    </div> */}
+                    <p className="font-medium flex items-center gap-1.5 text-foreground">
+                      Lifetime
+                      <Sparkles className="size-3.5 text-primary" />
+                    </p>
                   </div>
-                </CardContent>
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-1.5 text-muted-foreground">
+                      <CreditCard className="size-3.5" />
+                      Amount paid
+                    </div>
+                    <p className="font-medium text-foreground">
+                      {formatAmount(orderAmount, orderCurrency)}
+                    </p>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-1.5 text-muted-foreground">
+                      <Check className="size-3.5" />
+                      Status
+                    </div>
+                    <p className="font-medium text-green-600 dark:text-green-400">
+                      Lifetime access
+                    </p>
+                  </div>
+                </div>
               </>
             )}
 
             {hasActivePurchase && (
               <>
-                <Separator />
-                <CardContent className="pt-6">
-                  {licenseKey ? (
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2 text-sm font-medium">
-                        <Key className="size-4" />
-                        License key
-                      </div>
-                      <code className="block rounded-md bg-muted px-4 py-3 text-sm font-mono break-all">
-                        {licenseKey}
-                      </code>
+                <div className="my-6 h-px bg-linear-to-r from-transparent via-border to-transparent" />
+                {licenseKey ? (
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+                      <Key className="size-4" />
+                      License key
                     </div>
-                  ) : (
-                    <p className="text-sm text-muted-foreground">
-                      Your license key will appear here once processed. Check the
-                      Polar portal for details.
-                    </p>
-                  )}
-                </CardContent>
+                    <code className="block rounded-xl bg-muted/50 px-4 py-3 text-sm font-mono break-all text-foreground">
+                      {licenseKey}
+                    </code>
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    Your license key will appear here once processed. Check the
+                    Polar portal for details.
+                  </p>
+                )}
               </>
             )}
 
-            <CardFooter className="gap-3">
+            <div className="mt-8">
               {hasActivePurchase ? (
-                <Button variant="outline" onClick={handlePortal}>
+                <Button variant="outline" onClick={handlePortal} className="rounded-full">
                   Manage license
                   <ExternalLink className="size-4" />
                 </Button>
               ) : (
-                <Button asChild>
+                <Button asChild className="rounded-full">
                   <a href="/#pricing">Get FluidField</a>
                 </Button>
               )}
-            </CardFooter>
-          </Card>
+            </div>
+          </LiquidGlassCard>
         </motion.div>
       </div>
     </section>
