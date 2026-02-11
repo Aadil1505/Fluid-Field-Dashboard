@@ -23,7 +23,7 @@ const features = [
 export default function PricingGlass() {
   const handleCheckout = async () => {
     await authClient.checkout({
-      slug: "Fluid-Field",
+      slug: "Fluid-Field-Monhtly",
       successUrl: `${window.location.origin}/success`,
     });
   };
@@ -141,8 +141,16 @@ export default function PricingGlass() {
                   Pay once, own forever. No recurring fees.
                 </p>
                 <div className="pt-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg text-muted-foreground line-through">
+                      $99.00
+                    </span>
+                    <Badge className="bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/20">
+                      60% OFF
+                    </Badge>
+                  </div>
                   <span className="text-4xl font-bold text-foreground">
-                    $39.99
+                    $39.00
                   </span>
                   <span className="ml-1 text-muted-foreground">One Time</span>
                 </div>

@@ -28,7 +28,11 @@ export const auth = betterAuth({
           products: [
             {
               productId: "6fd998c2-d456-442d-b2a6-0b9c29c0ca7b",
-              slug: "Fluid-Field", // Custom slug for easy reference in Checkout URL, e.g. /checkout/Fluid-Field
+              slug: "Fluid-Field-Monthly", // Custom slug for easy reference in Checkout URL, e.g. /checkout/Fluid-Field
+            },
+            {
+              productId: "a9ae9cbc-cf34-4119-bdce-439dec938363",
+              slug: "Fluid-Field-Lifetime", // Custom slug for easy reference in Checkout URL, e.g. /checkout/Fluid-Field
             },
           ],
           successUrl: process.env.POLAR_SUCCESS_URL,

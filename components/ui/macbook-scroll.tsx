@@ -66,8 +66,11 @@ export const MacbookScroll = ({
   const textOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
   return (
-    <div
+    <motion.div
       ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.45 }}
       className="flex min-h-[120vh] shrink-0 scale-[0.65] transform flex-col items-center justify-start perspective-midrange md:scale-100 md:min-h-[150vh] md:py-25"
     >
       {/* <motion.h2
@@ -115,7 +118,7 @@ export const MacbookScroll = ({
         )}
         {badge && <div className="absolute bottom-4 left-4">{badge}</div>}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
