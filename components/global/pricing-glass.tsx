@@ -2,7 +2,7 @@
 
 import { authClient } from "@/lib/auth-client";
 import { Badge } from "@/components/ui/badge";
-import { Check } from "lucide-react";
+import { Check, Lock } from "lucide-react";
 import { motion } from "motion/react";
 import {
   LiquidGlassCard,
@@ -18,6 +18,16 @@ const features = [
   "Autopilot mode",
   "Granular customization",
   "Free updates",
+];
+
+const freeFeatures = [
+  { name: "Magnetic Field theme", included: true },
+  { name: "Cursor-responsive physics", included: true },
+  { name: "GPU-accelerated (Metal)", included: true },
+  { name: "Autopilot mode", included: true },
+  { name: "Granular customization", included: true },
+  { name: "Multi-display support", included: true },
+  { name: "9 additional themes", included: false },
 ];
 
 export default function PricingGlass() {
@@ -47,11 +57,77 @@ export default function PricingGlass() {
         >
           <h2 className="text-3xl font-bold tracking-tight">Simple Pricing</h2>
           <p className="mt-3 text-muted-foreground">
-            One purchase, everything included. Less than a coffee.
+            Start free, upgrade to unlock all themes.
           </p>
         </motion.div>
 
-        <div className="mt-12 grid w-full max-w-3xl gap-6 md:grid-cols-2">
+        <div className="mt-12 grid w-full max-w-5xl gap-6 md:grid-cols-3">
+          {/* Free Plan */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.05 }}
+          >
+            <LiquidGlassCard
+              glassSize="lg"
+              className="h-full rounded-3xl border border-border/60 bg-linear-to-br from-primary-foreground to-bg-card shadow-xl"
+            >
+              {/* Header */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-xl font-semibold text-foreground">
+                    Free
+                  </h3>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Full access to the Magnetic Field theme. All features included.
+                </p>
+                <div className="pt-2">
+                  <span className="text-4xl font-bold text-foreground">
+                    $0
+                  </span>
+                  <span className="ml-1 text-muted-foreground">Forever</span>
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div className="my-6 h-px bg-linear-to-r from-transparent via-border to-transparent" />
+
+              {/* Features */}
+              <ul className="space-y-3">
+                {freeFeatures.map((feature) => (
+                  <li
+                    key={feature.name}
+                    className={`flex items-center gap-3 text-sm ${
+                      feature.included
+                        ? "text-foreground"
+                        : "text-muted-foreground/50"
+                    }`}
+                  >
+                    {feature.included ? (
+                      <div className="flex size-5 shrink-0 items-center justify-center rounded-full bg-muted">
+                        <Check className="size-3 text-muted-foreground" />
+                      </div>
+                    ) : (
+                      <div className="flex size-5 shrink-0 items-center justify-center rounded-full bg-muted/50">
+                        <Lock className="size-3 text-muted-foreground/50" />
+                      </div>
+                    )}
+                    {feature.name}
+                  </li>
+                ))}
+              </ul>
+
+              {/* Button */}
+              <div className="mt-8">
+                <Button className="rounded-full w-full" variant="outline">
+                  Download Free
+                </Button>
+              </div>
+            </LiquidGlassCard>
+          </motion.div>
+
           {/* Monthly Plan */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
