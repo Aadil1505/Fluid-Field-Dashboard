@@ -207,7 +207,7 @@ export const Lid = ({
           className="absolute inset-0 flex items-center justify-center rounded-lg bg-[#010101]"
         >
           <span className="text-white">
-            FluidField
+            MotionDesk
           </span>
         </div>
       </div>

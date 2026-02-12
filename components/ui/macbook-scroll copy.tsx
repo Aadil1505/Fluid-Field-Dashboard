@@ -153,7 +153,7 @@ export const Lid = ({
         >
           <span className="text-white">
             {/* <AceternityLogo /> */}
-            FluidField
+            MotionDesk
           </span>
         </div>
       </div>

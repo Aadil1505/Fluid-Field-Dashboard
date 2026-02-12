@@ -33,14 +33,14 @@ const freeFeatures = [
 export default function PricingGlass() {
   const handleCheckout = async () => {
     await authClient.checkout({
-      slug: "Fluid-Field-Monthly",
+      slug: "Motion-Desk-Monthly",
       successUrl: `${window.location.origin}/success`,
     });
   };
 
   const handleLifetimeCheckout = async () => {
     await authClient.checkout({
-      slug: "Fluid-Field-Lifetime",
+      slug: "Motion-Desk-Lifetime",
       successUrl: `${window.location.origin}/success`,
     });
   };
@@ -187,7 +187,7 @@ export default function PricingGlass() {
               {/* Button */}
               <div className="mt-8">
                 <Button onClick={handleCheckout} className="rounded-full w-full" variant="outline">
-                  Get FluidField
+                  Get MotionDesk
                 </Button>
               </div>
             </LiquidGlassCard>

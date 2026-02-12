@@ -22,7 +22,7 @@ export default function SuccessPage() {
           You&apos;re in.
         </h1>
         <p className="mt-3 max-w-sm text-muted-foreground">
-          FluidField is yours. Head to your dashboard to grab your license key
+          MotionDesk is yours. Head to your dashboard to grab your license key
           and download the app.
         </p>
 

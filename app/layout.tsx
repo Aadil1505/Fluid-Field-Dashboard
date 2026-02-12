@@ -22,7 +22,7 @@ const quantico = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FluidField — Live wallpapers for macOS",
+  title: "MotionDesk — Live wallpapers for macOS",
   description:
     "GPU-accelerated live wallpaper engine for macOS with 7 physics-driven themes, cursor-responsive interaction, and multi-display support.",
 };

@@ -172,7 +172,7 @@ export default function DashboardPage() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Package className="size-5" />
-                  <h3 className="text-xl font-semibold text-foreground">FluidField</h3>
+                  <h3 className="text-xl font-semibold text-foreground">MotionDesk</h3>
                 </div>
                 <Badge variant={hasActivePurchase ? "default" : "secondary"}>
                   {hasActivePurchase
@@ -187,7 +187,7 @@ export default function DashboardPage() {
                   ? hasLifetime && !sub
                     ? "You have lifetime access. Enjoy all themes and features forever."
                     : "Your license is active. You have full access to all themes and features."
-                  : "You haven't purchased FluidField yet."}
+                  : "You haven't purchased MotionDesk yet."}
               </p>
             </div>
 
@@ -299,7 +299,7 @@ export default function DashboardPage() {
                 </Button>
               ) : (
                 <Button asChild className="rounded-full">
-                  <a href="/#pricing">Get FluidField</a>
+                  <a href="/#pricing">Get MotionDesk</a>
                 </Button>
               )}
             </div>
