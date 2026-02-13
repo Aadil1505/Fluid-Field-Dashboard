@@ -3,9 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const DOWNLOAD_URL =
-  process.env.NEXT_PUBLIC_DOWNLOAD_URL ??
-  "https://github.com/yourorg/motiondesk/releases/latest/download/MotionDesk.dmg";
+const DOWNLOAD_URL = process.env.NEXT_PUBLIC_DOWNLOAD_URL ?? "#";
 
 const AppleIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 225 225" fill="currentColor" className={className}>

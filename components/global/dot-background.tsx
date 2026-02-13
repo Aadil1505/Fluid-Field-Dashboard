@@ -151,7 +151,7 @@ export default function DotBackground() {
       const dots = dotsRef.current;
       const time = now / 1000;
 
-      const dotColor = isDarkRef.current ? "161, 161, 170" : "161, 161, 170"; // zinc-400/zinc-600 are similar
+      const dotColor = isDarkRef.current ? "161, 161, 170" : "113, 113, 122"; // dark: zinc-400, light: zinc-500
 
       for (let i = 0; i < dots.length; i++) {
         const dot = dots[i];

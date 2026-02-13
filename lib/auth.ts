@@ -8,7 +8,7 @@ import { nextCookies } from "better-auth/next-js";
 
 const client = new Polar({
   accessToken: process.env.POLAR_ACCESS_TOKEN!,
-  server: "sandbox",
+  server: (process.env.POLAR_ENVIRONMENT as "sandbox" | "production") ?? "sandbox",
 });
 
 export const auth = betterAuth({
