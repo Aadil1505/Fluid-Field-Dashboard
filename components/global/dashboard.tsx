@@ -13,6 +13,7 @@ import {
   Infinity,
   Key,
   Loader2,
+  LogOut,
   Package,
   RefreshCw,
   Sparkles,
@@ -150,10 +151,23 @@ export default function DashboardPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-          <p className="mt-2 text-muted-foreground">
-            Welcome back, {session.user.name || session.user.email}.
-          </p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+              <p className="mt-2 text-muted-foreground">
+                Welcome back, {session.user.name || session.user.email}.
+              </p>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => authClient.signOut({ fetchOptions: { onSuccess: () => router.push("/") } })}
+              className="rounded-full text-muted-foreground hover:text-foreground"
+            >
+              <LogOut className="size-4" />
+              Sign out
+            </Button>
+          </div>
         </motion.div>
 
         <motion.div
