@@ -119,7 +119,7 @@ export const FloatingNav = ({
       let best: { section: Element; index: number } | null = null;
       let bestDistance = Infinity;
 
-      sectionEntries.forEach((entry) => {
+      for (const entry of sectionEntries) {
         const rect = entry.section.getBoundingClientRect();
         const sectionTop = rect.top + window.scrollY;
         const sectionCenter = sectionTop + rect.height / 2;
@@ -128,7 +128,7 @@ export const FloatingNav = ({
           bestDistance = distance;
           best = entry;
         }
-      });
+      }
 
       if (best) {
         const targetIndex = best.index;
