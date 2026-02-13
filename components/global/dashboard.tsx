@@ -159,10 +159,10 @@ export default function DashboardPage() {
               </p>
             </div>
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
               onClick={() => authClient.signOut({ fetchOptions: { onSuccess: () => router.push("/") } })}
-              className="rounded-full text-muted-foreground hover:text-foreground"
+              className="rounded-full"
             >
               <LogOut className="size-4" />
               Sign out

@@ -20,7 +20,7 @@ const features = [
 ];
 
 const freeFeatures = [
-  { name: "Magnetic Field theme", included: true },
+  { name: "Magnetic Field & Contour theme", included: true },
   { name: "Cursor-responsive physics", included: true },
   { name: "GPU-accelerated (Metal)", included: true },
   { name: "Granular customization", included: true },
@@ -78,7 +78,7 @@ export default function PricingGlass() {
                     </h3>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Full access to the Magnetic Field theme. All features included.
+                    Full access to the Contour & Magnetic Field theme. All features included.
                   </p>
                   <div className="pt-2">
                     <div className="flex items-center gap-2 h-2" />

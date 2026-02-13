@@ -24,7 +24,7 @@ export default function DownloadButton({
   variant = "default",
   size = "lg",
   className,
-  label = "Download for MacOS",
+  label = "Download for macOS",
 }: DownloadButtonProps) {
   return (
     <Button variant={variant} size={size} asChild className={cn(className)}>
