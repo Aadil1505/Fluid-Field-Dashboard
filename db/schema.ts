@@ -75,6 +75,15 @@ export const verification = pgTable(
   (table) => [index("verification_identifier_idx").on(table.identifier)],
 );
 
+export const feedback = pgTable("feedback", {
+  id: text("id").primaryKey(),
+  email: text("email"),
+  category: text("category").notNull(),
+  message: text("message").notNull(),
+  appVersion: text("app_version"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
@@ -94,11 +103,12 @@ export const accountRelations = relations(account, ({ one }) => ({
   }),
 }));
 
-export const schema = { 
-  user, 
-  session, 
-  account, 
+export const schema = {
+  user,
+  session,
+  account,
   verification,
+  feedback,
   userRelations,
   sessionRelations,
   accountRelations,
