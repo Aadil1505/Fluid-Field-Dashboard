@@ -241,6 +241,7 @@ export const FloatingNav = ({
             {themeSlot}
             {authSlot}
           </div>
+
         </motion.div>
       </AnimatePresence>
     </>

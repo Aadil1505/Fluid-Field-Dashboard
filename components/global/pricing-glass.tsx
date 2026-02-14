@@ -222,10 +222,10 @@ export default function PricingGlass() {
                   <div className="pt-2">
                     <div className="flex items-center gap-2">
                       <span className="text-lg text-muted-foreground line-through">
-                        $34.99
+                        $39.99
                       </span>
                       <Badge className="bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/20">
-                        43% OFF
+                        50% OFF
                       </Badge>
                     </div>
                     <span className="text-4xl font-bold text-foreground">

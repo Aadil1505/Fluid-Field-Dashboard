@@ -5,7 +5,8 @@ import { authClient } from "@/lib/auth-client";
 import { FloatingNav } from "@/components/ui/floating-navbar";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import DownloadButton from "@/components/global/download-button";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
 import {
   Palette,
   Sparkles,
@@ -16,6 +17,13 @@ import {
 
 export default function Navbar() {
   const { data: session } = authClient.useSession();
+  const [showDownload, setShowDownload] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setShowDownload(latest > 630);
+  });
 
   const navItems = useMemo(
     () => [
@@ -44,11 +52,28 @@ export default function Navbar() {
         }
       />
 
-      <div className="pointer-events-none fixed inset-x-0 top-6 flex justify-end px-6 z-[5000] sm:px-10">
-        <div className="pointer-events-auto">
-          <DownloadButton size="sm" />
-        </div>
-      </div>
+      <AnimatePresence>
+        {showDownload && !dismissed && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.25 }}
+            className="pointer-events-none fixed inset-x-0 bottom-10 hidden sm:flex items-center justify-end px-6 z-5000 sm:px-10"
+          >
+            <div className="pointer-events-auto flex items-center gap-2">
+              <DownloadButton />
+              <button
+                onClick={() => setDismissed(true)}
+                className="flex items-center justify-center size-8 rounded-full bg-muted/80 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                aria-label="Dismiss download button"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
