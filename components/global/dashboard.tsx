@@ -294,6 +294,9 @@ export default function DashboardPage() {
                     <code className="block rounded-xl bg-muted/50 px-4 py-3 text-sm font-mono break-all text-foreground">
                       {licenseKey}
                     </code>
+                    <p className="text-xs text-muted-foreground">
+                      Click Manage license to see your full key.
+                    </p>
                   </div>
                 ) : (
                   <p className="text-sm text-secondary-foreground">
