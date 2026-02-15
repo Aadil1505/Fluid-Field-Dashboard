@@ -1,10 +1,11 @@
 "use client";
 
+import DownloadButton from "@/components/global/download-button";
+import { LiquidGlassCard } from "@/components/kokonutui/liquid-glass-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { LiquidGlassCard } from "@/components/kokonutui/liquid-glass-card";
 import { authClient } from "@/lib/auth-client";
-import DownloadButton from "@/components/global/download-button";
+import type { CustomerState } from "@polar-sh/sdk/models/components/customerstate.js";
 import {
   CalendarDays,
   Check,
@@ -21,15 +22,72 @@ import {
 import { motion } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function get(obj: any, ...keys: string[]) {
-  for (const key of keys) {
-    const val = obj?.[key];
-    if (val !== undefined) return val;
-  }
+type DashboardUser = {
+  name?: string | null;
+  email: string;
+};
+
+type DashboardPageProps = {
+  user: DashboardUser;
+};
+
+type AnyRecord = Record<string, unknown>;
+
+const ACTIVE_SUBSCRIPTION_STATUSES = new Set(["active", "trialing"]);
+
+function toDateInput(value: Date | null | undefined): string | Date | null | undefined {
+  if (value === null || value === undefined) return value;
+  if (typeof value === "string" || value instanceof Date) return value;
   return undefined;
+}
+
+function getLicenseKey(customerState: CustomerState | null): string | undefined {
+  const grantedBenefits = customerState?.grantedBenefits ?? [];
+  const licenseKeyBenefit = grantedBenefits.find((benefit) => benefit.benefitType === "license_keys");
+  const properties = (licenseKeyBenefit?.properties ?? null) as AnyRecord | null;
+  if (!properties) return undefined;
+
+  const displayKey = properties.displayKey;
+  if (typeof displayKey === "string") return displayKey;
+
+  const licenseKey = properties.licenseKey;
+  if (typeof licenseKey === "string") return licenseKey;
+
+  return undefined;
+}
+
+function normalizeCustomerState(customerState: CustomerState | null) {
+  const activeSubscriptions = (customerState?.activeSubscriptions ?? [])
+    .filter((subscription) => ACTIVE_SUBSCRIPTION_STATUSES.has(subscription.status))
+    .sort(
+      (a, b) =>
+        new Date(b.currentPeriodStart).getTime() -
+        new Date(a.currentPeriodStart).getTime(),
+    );
+
+  const primarySubscription = activeSubscriptions[0] ?? null;
+  const grantedBenefits = customerState?.grantedBenefits ?? [];
+
+  const hasActiveSubscription = activeSubscriptions.length > 0;
+  const hasGrantedBenefits = grantedBenefits.length > 0;
+  const hasLifetime = hasGrantedBenefits && !hasActiveSubscription;
+  const hasActivePurchase = hasActiveSubscription || hasGrantedBenefits;
+
+  return {
+    hasActivePurchase,
+    hasLifetime,
+    licenseKey: getLicenseKey(customerState),
+    sub: primarySubscription,
+    subAmount: primarySubscription?.amount,
+    subCurrency: primarySubscription?.currency ?? "usd",
+    subInterval: primarySubscription?.recurringInterval,
+    subPeriodStart: toDateInput(primarySubscription?.currentPeriodStart),
+    subPeriodEnd: toDateInput(primarySubscription?.currentPeriodEnd),
+    subStartedAt: toDateInput(primarySubscription?.startedAt),
+    subStatus: primarySubscription?.status,
+  };
 }
 
 function formatDate(value: string | Date | null | undefined): string {
@@ -49,31 +107,33 @@ function formatAmount(cents: number, currency: string): string {
   }).format(cents / 100);
 }
 
-export default function DashboardPage() {
+export default function DashboardPage({ user }: DashboardPageProps) {
   const router = useRouter();
-  const { data: session, isPending: sessionPending } =
-    authClient.useSession();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [customerState, setCustomerState] = useState<any>(null);
+  const [customerState, setCustomerState] = useState<CustomerState | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (sessionPending) return;
-    if (!session) {
-      router.push("/auth/sign-in");
-      return;
-    }
+    let active = true;
 
     authClient.customer
       .state()
       .then(({ data }) => {
-        setCustomerState(data);
+        if (!active) return;
+        setCustomerState(data ?? null);
       })
       .catch(() => {
+        if (!active) return;
         setCustomerState(null);
       })
-      .finally(() => setLoading(false));
-  }, [session, sessionPending, router]);
+      .finally(() => {
+        if (!active) return;
+        setLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const handlePortal = async () => {
     const { data } = await authClient.customer.portal();
@@ -82,7 +142,21 @@ export default function DashboardPage() {
     }
   };
 
-  if (sessionPending || loading) {
+  const {
+    hasActivePurchase,
+    hasLifetime,
+    licenseKey,
+    sub,
+    subAmount,
+    subCurrency,
+    subInterval,
+    subPeriodStart,
+    subPeriodEnd,
+    subStartedAt,
+    subStatus,
+  } = useMemo(() => normalizeCustomerState(customerState), [customerState]);
+
+  if (loading) {
     return (
       <div className="flex min-h-[80vh] items-center justify-center">
         <Loader2 className="size-6 animate-spin text-secondary-foreground" />
@@ -90,59 +164,6 @@ export default function DashboardPage() {
     );
   }
 
-  if (!session) return null;
-
-  const activeSubscriptions =
-    get(customerState, "activeSubscriptions", "active_subscriptions") ?? [];
-  const grantedBenefits =
-    get(customerState, "grantedBenefits", "granted_benefits") ?? [];
-  const hasActivePurchase =
-    activeSubscriptions.length > 0 || grantedBenefits.length > 0;
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const licenseKeyBenefit = grantedBenefits.find((b: any) => {
-    const type = get(b, "benefitType", "benefit_type");
-    return type === "license_keys";
-  });
-
-  const licenseKey = licenseKeyBenefit
-    ? get(licenseKeyBenefit.properties, "displayKey", "display_key") ??
-      get(licenseKeyBenefit.properties, "licenseKey", "license_key") ??
-      get(licenseKeyBenefit.properties, "licenseKeyId", "license_key_id")
-    : undefined;
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const sub = activeSubscriptions[0] as any;
-  const subAmount = sub ? get(sub, "amount") : undefined;
-  const subCurrency = sub ? get(sub, "currency") ?? "usd" : "usd";
-  const subInterval = sub
-    ? get(sub, "recurringInterval", "recurring_interval")
-    : undefined;
-  const subPeriodStart = sub
-    ? get(sub, "currentPeriodStart", "current_period_start")
-    : undefined;
-  const subPeriodEnd = sub
-    ? get(sub, "currentPeriodEnd", "current_period_end")
-    : undefined;
-  const subStartedAt = sub ? get(sub, "startedAt", "started_at") : undefined;
-  const subStatus = sub ? get(sub, "status") : undefined;
-
-  // Check for lifetime/one-time orders
-  const orders = get(customerState, "orders") ?? [];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const lifetimeOrder = orders.find((o: any) => {
-    const productName = get(o, "product", "productName", "product_name") ?? "";
-    const productId = get(o, "productId", "product_id") ?? "";
-    return (
-      productName.toLowerCase().includes("lifetime") ||
-      productId === "a9ae9cbc-cf34-4119-bdce-439dec938363"
-    );
-  });
-
-  // Determine if user has lifetime access (has benefits but no subscription, or has lifetime order)
-  const hasLifetime = lifetimeOrder || (grantedBenefits.length > 0 && activeSubscriptions.length === 0);
-  const orderAmount = lifetimeOrder ? get(lifetimeOrder, "amount") : 3900; // Default to $39 if not available
-  const orderCurrency = lifetimeOrder ? get(lifetimeOrder, "currency") ?? "usd" : "usd";
   return (
     <section className="px-6 py-40">
       <div className="mx-auto max-w-2xl">
@@ -155,13 +176,18 @@ export default function DashboardPage() {
             <div>
               <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
               <p className="mt-2 text-secondary-foreground">
-                Welcome back, {session.user.name || session.user.email}.
+                Welcome back, {user.name || user.email}.
               </p>
+              <p className="text-sm text-secondary-foreground/80">{user.email}</p>
             </div>
             <Button
               variant="outline"
               size="sm"
-              onClick={() => authClient.signOut({ fetchOptions: { onSuccess: () => router.push("/") } })}
+              onClick={() =>
+                authClient.signOut({
+                  fetchOptions: { onSuccess: () => router.push("/") },
+                })
+              }
               className="rounded-full"
             >
               <LogOut className="size-4" />
@@ -180,7 +206,6 @@ export default function DashboardPage() {
             glassSize="lg"
             className="rounded-3xl border border-border/60 bg-linear-to-br from-primary-foreground to-bg-card shadow-xl"
           >
-            {/* Header */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -188,11 +213,7 @@ export default function DashboardPage() {
                   <h3 className="text-xl font-semibold text-foreground">MotionDesk</h3>
                 </div>
                 <Badge variant={hasActivePurchase ? "default" : "secondary"}>
-                  {hasActivePurchase
-                    ? hasLifetime && !sub
-                      ? "Lifetime"
-                      : "Active"
-                    : "No purchase"}
+                  {hasActivePurchase ? (hasLifetime && !sub ? "Lifetime" : "Active") : "No purchase"}
                 </Badge>
               </div>
               <p className="text-sm text-secondary-foreground">
@@ -249,24 +270,15 @@ export default function DashboardPage() {
             {hasActivePurchase && hasLifetime && !sub && (
               <>
                 <div className="my-6 h-px bg-linear-to-r from-transparent via-border to-transparent" />
-                <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="grid grid-cols-1 gap-4 text-sm sm:grid-cols-2">
                   <div className="space-y-1">
                     <div className="flex items-center gap-1.5 text-secondary-foreground">
                       <Infinity className="size-3.5" />
                       Plan
                     </div>
-                    <p className="font-medium flex items-center gap-1.5 text-foreground">
+                    <p className="flex items-center gap-1.5 font-medium text-foreground">
                       Lifetime
                       <Sparkles className="size-3.5 text-primary" />
-                    </p>
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-1.5 text-secondary-foreground">
-                      <CreditCard className="size-3.5" />
-                      Amount paid
-                    </div>
-                    <p className="font-medium text-foreground">
-                      {formatAmount(orderAmount, orderCurrency)}
                     </p>
                   </div>
                   <div className="space-y-1">
@@ -274,9 +286,7 @@ export default function DashboardPage() {
                       <Check className="size-3.5" />
                       Status
                     </div>
-                    <p className="font-medium text-green-600 dark:text-green-400">
-                      Lifetime access
-                    </p>
+                    <p className="font-medium text-green-600 dark:text-green-400">Lifetime access</p>
                   </div>
                 </div>
               </>
@@ -291,7 +301,7 @@ export default function DashboardPage() {
                       <Key className="size-4" />
                       License key
                     </div>
-                    <code className="block rounded-xl bg-muted/50 px-4 py-3 text-sm font-mono break-all text-foreground">
+                    <code className="block break-all rounded-xl bg-muted/50 px-4 py-3 font-mono text-sm text-foreground">
                       {licenseKey}
                     </code>
                     <p className="text-xs text-muted-foreground">
@@ -300,8 +310,7 @@ export default function DashboardPage() {
                   </div>
                 ) : (
                   <p className="text-sm text-secondary-foreground">
-                    Your license key will appear here once processed. Check the
-                    Polar portal for details.
+                    Your license key will appear here once processed. Check the Polar portal for details.
                   </p>
                 )}
               </>

@@ -6,6 +6,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { authClient } from "@/lib/auth-client";
+import type { PolarCheckoutSlug } from "@/lib/polar";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -16,7 +17,7 @@ export default function AuthForm({
   checkoutSlug,
 }: {
   mode: "sign-in" | "sign-up";
-  checkoutSlug?: string;
+  checkoutSlug?: PolarCheckoutSlug;
 }) {
   const router = useRouter();
   const isSignUp = mode === "sign-up";

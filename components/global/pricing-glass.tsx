@@ -6,6 +6,7 @@ import {
 } from "@/components/kokonutui/liquid-glass-card";
 import { Badge } from "@/components/ui/badge";
 import { authClient } from "@/lib/auth-client";
+import { POLAR_PRODUCTS } from "@/lib/polar";
 import { Check, X } from "lucide-react";
 import { motion } from "motion/react";
 import { Button } from "../ui/button";
@@ -35,23 +36,23 @@ export default function PricingGlass() {
 
   const handleCheckout = async () => {
     if (!session) {
-      router.push("/auth/sign-up?checkout=Motion-Desk-Monthly");
+      router.push(`/auth/sign-up?checkout=${POLAR_PRODUCTS.monthly.slug}`);
       return;
     }
 
     await authClient.checkout({
-      slug: "Motion-Desk-Monthly",
+      slug: POLAR_PRODUCTS.monthly.slug,
     });
   };
 
   const handleLifetimeCheckout = async () => {
     if (!session) {
-      router.push("/auth/sign-up?checkout=Motion-Desk-Lifetime");
+      router.push(`/auth/sign-up?checkout=${POLAR_PRODUCTS.lifetime.slug}`);
       return;
     }
 
     await authClient.checkout({
-      slug: "Motion-Desk-Lifetime",
+      slug: POLAR_PRODUCTS.lifetime.slug,
     });
   };
 

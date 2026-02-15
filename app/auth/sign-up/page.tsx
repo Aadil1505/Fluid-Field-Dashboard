@@ -1,4 +1,6 @@
 import AuthForm from "@/components/global/auth-form";
+import { isPolarCheckoutSlug } from "@/lib/polar";
+import type { PolarCheckoutSlug } from "@/lib/polar";
 
 type AuthPageProps = {
   searchParams?: Promise<{
@@ -6,10 +8,10 @@ type AuthPageProps = {
   }>;
 };
 
-function getCheckoutSlug(value: string | string[] | undefined): string | undefined {
-  if (typeof value === "string") return value;
-  if (Array.isArray(value)) return value[0];
-  return undefined;
+function getCheckoutSlug(value: string | string[] | undefined): PolarCheckoutSlug | undefined {
+  const raw = typeof value === "string" ? value : Array.isArray(value) ? value[0] : undefined;
+  if (!raw) return undefined;
+  return isPolarCheckoutSlug(raw) ? raw : undefined;
 }
 
 export default async function SignUpPage({ searchParams }: AuthPageProps) {

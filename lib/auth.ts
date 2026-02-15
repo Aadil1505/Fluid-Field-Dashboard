@@ -1,5 +1,6 @@
 import { db } from "@/db/drizzle";
 import { schema } from "@/db/schema";
+import { POLAR_PRODUCTS } from "@/lib/polar";
 import { checkout, polar, portal, webhooks } from "@polar-sh/better-auth";
 import { Polar } from "@polar-sh/sdk";
 import { betterAuth } from "better-auth";
@@ -27,12 +28,12 @@ export const auth = betterAuth({
         checkout({
           products: [
             {
-              productId: "6fd998c2-d456-442d-b2a6-0b9c29c0ca7b",
-              slug: "Motion-Desk-Monthly", // Custom slug for easy reference in Checkout URL, e.g. /checkout/Motion-Desk
+              productId: POLAR_PRODUCTS.monthly.productId,
+              slug: POLAR_PRODUCTS.monthly.slug,
             },
             {
-              productId: "a9ae9cbc-cf34-4119-bdce-439dec938363",
-              slug: "Motion-Desk-Lifetime", // Custom slug for easy reference in Checkout URL, e.g. /checkout/Motion-Desk
+              productId: POLAR_PRODUCTS.lifetime.productId,
+              slug: POLAR_PRODUCTS.lifetime.slug,
             },
           ],
           successUrl: process.env.POLAR_SUCCESS_URL,
