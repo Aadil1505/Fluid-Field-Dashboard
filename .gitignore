@@ -19,6 +19,8 @@
 
 # production
 /build
+*.dmg
+public/downloads/*.dmg
 
 # misc
 .DS_Store

@@ -5,15 +5,77 @@ import type { Metadata } from "next";
 import { Roboto_Mono } from "next/font/google";
 import "./globals.css";
 
-const quantico = Roboto_Mono({
-  variable: "--font-quantico",
-  weight: "400"
+const robotoMono = Roboto_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "MotionDesk — Live wallpapers for macOS",
+  metadataBase: new URL("https://motiondesk.app"),
+  title: {
+    default: "MotionDesk - Live Wallpapers for macOS",
+    template: "%s | MotionDesk",
+  },
   description:
-    "GPU-accelerated live wallpaper engine for macOS with 10+ physics-driven themes, cursor-responsive interaction, and multi-display support.",
+    "MotionDesk is a GPU-accelerated live wallpaper app for macOS with interactive themes, multi-display support, autopilot mode, and deep customization.",
+  applicationName: "MotionDesk",
+  creator: "MotionDesk",
+  publisher: "MotionDesk",
+  category: "software",
+  keywords: [
+    "MotionDesk",
+    "MotionDesk app",
+    "motion desk",
+    "motion desk app",
+    "macOS live wallpapers",
+    "live wallpaper mac",
+    "animated wallpaper macOS",
+    "interactive wallpaper macOS",
+    "GPU wallpaper engine macOS",
+    "multi display wallpaper mac",
+    "MotionDesk download",
+    "moton desk",
+    "motionsdesk",
+    "motion deskk",
+  ],
+  alternates: {
+    canonical: "/",
+  },
+  manifest: "/manifest.json",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    url: "https://motiondesk.app",
+    siteName: "MotionDesk",
+    title: "MotionDesk - Live Wallpapers for macOS",
+    description:
+      "GPU-accelerated live wallpapers for macOS with interactive themes, autopilot mode, and multi-display support.",
+    images: [
+      {
+        url: "/web-app-manifest-512x512.png",
+        width: 512,
+        height: 512,
+        alt: "MotionDesk app icon",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MotionDesk - Live Wallpapers for macOS",
+    description:
+      "Interactive, GPU-accelerated live wallpapers for macOS. Multi-display ready.",
+    images: ["/web-app-manifest-512x512.png"],
+  },
 };
 
 export default function RootLayout({
@@ -23,10 +85,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning >
-      <body
-        // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        className={`${quantico.className} antialiased`}
-      >
+      <body className={`${robotoMono.className} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
