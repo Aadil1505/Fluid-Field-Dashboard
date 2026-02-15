@@ -13,6 +13,7 @@ import {
   DollarSign,
   Home,
   User,
+  CircleHelp,
 } from "lucide-react";
 
 export default function Navbar() {
@@ -31,6 +32,7 @@ export default function Navbar() {
       { name: "Themes", link: "/#showcase", icon: <Palette className="size-4" /> },
       { name: "Features", link: "/#features", icon: <Sparkles className="size-4" /> },
       { name: "Pricing", link: "/#pricing", icon: <DollarSign className="size-4" /> },
+      { name: "FAQ", link: "/#faq", icon: <CircleHelp className="size-4" /> },
     ],
     []
   );

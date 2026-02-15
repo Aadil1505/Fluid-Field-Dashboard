@@ -1,6 +1,7 @@
 "use client";
 
 import { LiquidGlassCard } from "@/components/kokonutui/liquid-glass-card";
+import { motion } from "motion/react";
 import { useState } from "react";
 
 const faqItems = [
@@ -42,15 +43,27 @@ export default function FAQs() {
   return (
     <section id="faq" className="px-6 py-24">
       <div className="mx-auto max-w-5xl">
-        <div className="mx-auto max-w-2xl text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mx-auto max-w-2xl text-center"
+        >
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             Frequently Asked Questions
           </h2>
           <p className="mt-3 text-secondary-foreground">
             Quick answers about billing, cancellation, and getting started.
           </p>
-        </div>
+        </motion.div>
 
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
         <LiquidGlassCard
           glassSize="lg"
           className="mx-auto mt-10 max-w-3xl rounded-3xl border border-border/60 bg-linear-to-br from-primary-foreground to-bg-card shadow-xl"
@@ -60,7 +73,13 @@ export default function FAQs() {
               const isOpen = openItem === item.id;
 
               return (
-                <div key={item.id}>
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.35, delay: 0.04 * index }}
+                >
                   <button
                     type="button"
                     onClick={() => setOpenItem(isOpen ? "" : item.id)}
@@ -86,12 +105,13 @@ export default function FAQs() {
                   {index < faqItems.length - 1 && (
                     <div className="mx-4 h-px bg-linear-to-r from-transparent via-border to-transparent" />
                   )}
-                </div>
+                </motion.div>
               );
             })}
           </div>
 
         </LiquidGlassCard>
+        </motion.div>
       </div>
     </section>
   );
