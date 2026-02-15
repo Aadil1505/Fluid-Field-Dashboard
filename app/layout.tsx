@@ -2,19 +2,8 @@ import DotBackground from "@/components/global/dot-background";
 import Navbar from "@/components/global/navbar";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Roboto_Mono } from "next/font/google";
+import { Roboto_Mono } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/global/footer";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 const quantico = Roboto_Mono({
   variable: "--font-quantico",

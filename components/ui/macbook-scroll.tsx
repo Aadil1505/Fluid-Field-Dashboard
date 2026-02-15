@@ -30,6 +30,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import Image from "next/image";
 
 type VideoItem = {
   name: string;
@@ -56,12 +57,16 @@ export const MacbookScroll = ({
     offset: ["start start", "end start"],
   });
 
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== "undefined" && window.innerWidth < 768,
+  );
 
   useEffect(() => {
-    if (window && window.innerWidth < 768) {
-      setIsMobile(true);
-    }
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+    };
   }, []);
 
   const scaleX = useTransform(
@@ -87,7 +92,7 @@ export const MacbookScroll = ({
       transition={{ duration: 0.6, delay: 0.45 }}
       className="flex min-h-[120vh] shrink-0 scale-[0.65] transform flex-col items-center justify-start perspective-midrange md:scale-100 md:min-h-[150vh] md:py-25"
     >
-      {/* <motion.h2
+      <motion.h2
         style={{
           translateY: textTransform,
           opacity: textOpacity,
@@ -96,10 +101,10 @@ export const MacbookScroll = ({
       >
         {title || (
           <span>
-            This Macbook is built with Tailwindcss. <br /> No kidding.
+            See your Mac come to life
           </span>
         )}
-      </motion.h2> */}
+      </motion.h2>
       {/* Lid */}
       <Lid
         src={src}
@@ -290,9 +295,10 @@ export const Lid = ({
             </div>
           </Carousel>
         ) : (
-          <img
+          <Image
             src={src as string}
             alt="macbook screen"
+            fill
             className="absolute inset-0 h-full w-full rounded-lg object-cover object-left-top"
           />
         )}
@@ -754,27 +760,6 @@ export const OptionKey = ({ className }: { className: string }) => {
         width="32"
         height="32"
         stroke="none"
-      />
-    </svg>
-  );
-};
-
-const AceternityLogo = () => {
-  return (
-    <svg
-      width="66"
-      height="65"
-      viewBox="0 0 66 65"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-3 w-3 text-white"
-    >
-      <path
-        d="M8 8.05571C8 8.05571 54.9009 18.1782 57.8687 30.062C60.8365 41.9458 9.05432 57.4696 9.05432 57.4696"
-        stroke="currentColor"
-        strokeWidth="15"
-        strokeMiterlimit="3.86874"
-        strokeLinecap="round"
       />
     </svg>
   );

@@ -19,6 +19,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { motion } from "motion/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -142,7 +143,6 @@ export default function DashboardPage() {
   const hasLifetime = lifetimeOrder || (grantedBenefits.length > 0 && activeSubscriptions.length === 0);
   const orderAmount = lifetimeOrder ? get(lifetimeOrder, "amount") : 3900; // Default to $39 if not available
   const orderCurrency = lifetimeOrder ? get(lifetimeOrder, "currency") ?? "usd" : "usd";
-  const orderCreatedAt = lifetimeOrder ? get(lifetimeOrder, "createdAt", "created_at") : undefined;
   return (
     <section className="px-6 py-40">
       <div className="mx-auto max-w-2xl">
@@ -315,7 +315,7 @@ export default function DashboardPage() {
                 </>
               ) : (
                 <Button asChild className="rounded-full">
-                  <a href="/#pricing">Get MotionDesk</a>
+                  <Link href="/#pricing">Get MotionDesk</Link>
                 </Button>
               )}
             </div>
