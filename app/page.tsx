@@ -1,4 +1,5 @@
 import Features from "@/components/global/features";
+import FAQs from "@/components/global/faqs";
 import Footer from "@/components/global/footer";
 import Hero from "@/components/global/hero";
 import PricingGlass from "@/components/global/pricing-glass";
@@ -21,12 +22,13 @@ export default function Home() {
       <div className="-mt-8 overflow-hidden">
         <MacbookScroll
           videos={videos}
-          title="See your Mac come to life"
+          // title="See your Mac come to life"
         />
       </div>
       <ThemeShowcase />
       <Features />
       <PricingGlass />
+      <FAQs />
       <Footer />
     </>
   );

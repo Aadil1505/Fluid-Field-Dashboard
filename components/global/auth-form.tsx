@@ -80,7 +80,7 @@ export default function AuthForm({
           <h2 className="font-semibold text-2xl text-foreground">
             {isSignUp ? "Create account" : "Welcome back"}
           </h2>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p className="mt-1 text-sm text-secondary-foreground">
             {isSignUp
               ? "Enter your details to get started."
               : "Sign in to your account."}
@@ -142,7 +142,7 @@ export default function AuthForm({
                   ? "Create account"
                   : "Sign in"}
             </Button>
-            <p className="text-center text-sm text-muted-foreground">
+            <p className="text-center text-sm text-secondary-foreground">
               {isSignUp ? (
                 <>
                   Already have an account?{" "}

@@ -36,7 +36,7 @@ export default async function AdminPage() {
       <div className="mx-auto max-w-6xl space-y-6">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Admin Console</h1>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="mt-2 text-sm text-secondary-foreground">
             Signed in as {session.user.email}
           </p>
         </div>
@@ -70,7 +70,7 @@ export default async function AdminPage() {
           <CardContent>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
-                <thead className="text-left text-muted-foreground">
+                <thead className="text-left text-secondary-foreground">
                   <tr className="border-b">
                     <th className="px-2 py-2 font-medium">When</th>
                     <th className="px-2 py-2 font-medium">Category</th>
@@ -91,7 +91,7 @@ export default async function AdminPage() {
                   ))}
                   {feedbackRows.length === 0 && (
                     <tr>
-                      <td className="px-2 py-4 text-muted-foreground" colSpan={5}>
+                      <td className="px-2 py-4 text-secondary-foreground" colSpan={5}>
                         No feedback yet.
                       </td>
                     </tr>
@@ -110,7 +110,7 @@ export default async function AdminPage() {
           <CardContent>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
-                <thead className="text-left text-muted-foreground">
+                <thead className="text-left text-secondary-foreground">
                   <tr className="border-b">
                     <th className="px-2 py-2 font-medium">When</th>
                     <th className="px-2 py-2 font-medium">Source</th>
@@ -133,7 +133,7 @@ export default async function AdminPage() {
                   ))}
                   {downloadRows.length === 0 && (
                     <tr>
-                      <td className="px-2 py-4 text-muted-foreground" colSpan={6}>
+                      <td className="px-2 py-4 text-secondary-foreground" colSpan={6}>
                         No download events yet.
                       </td>
                     </tr>

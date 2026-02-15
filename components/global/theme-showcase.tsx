@@ -64,7 +64,7 @@ export default function ThemeShowcase() {
           className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-3xl font-bold tracking-tight"
         >
           <span>10+ Themes.</span>
-          <span>100+ Customizable Parameters.</span>
+          <span>200+ Customizable Parameters.</span>
           <span className="inline-flex items-center gap-1">
             <IconInfinity className="size-10 sm:size-12" />
             Moods.
@@ -75,7 +75,7 @@ export default function ThemeShowcase() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mt-3 text-center text-muted-foreground"
+          className="mt-3 text-center text-secondary-foreground"
         >
         </motion.p>
 
@@ -90,7 +90,7 @@ export default function ThemeShowcase() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.3 }}
-          className="mt-8 text-center text-lg font-semibold text-muted-foreground/80 sm:text-xl"
+          className="mt-8 text-center text-lg font-semibold text-secondary-foreground/80 sm:text-xl"
         >
           And many more...
         </motion.p>

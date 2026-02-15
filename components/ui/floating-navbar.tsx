@@ -224,7 +224,7 @@ export const FloatingNav = ({
                   "relative z-10 inline-flex items-center px-2 transition-colors",
                   idx === activeIndex
                     ? "text-foreground"
-                    : "text-muted-foreground/70 hover:text-foreground/90"
+                    : "text-secondary-foreground/70 hover:text-foreground/90"
                 )}
               >
                 <span className="block sm:hidden">{navItem.icon}</span>

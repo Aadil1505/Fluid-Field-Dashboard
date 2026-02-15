@@ -21,7 +21,7 @@ export default function SuccessPage() {
         <h1 className="mt-6 text-3xl font-bold tracking-tight">
           You&apos;re in.
         </h1>
-        <p className="mt-3 max-w-sm text-muted-foreground">
+        <p className="mt-3 max-w-sm text-secondary-foreground">
           MotionDesk is yours. Head to your dashboard to grab your license key
           and download the app.
         </p>

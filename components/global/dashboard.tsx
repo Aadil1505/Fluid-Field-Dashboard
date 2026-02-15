@@ -85,7 +85,7 @@ export default function DashboardPage() {
   if (sessionPending || loading) {
     return (
       <div className="flex min-h-[80vh] items-center justify-center">
-        <Loader2 className="size-6 animate-spin text-muted-foreground" />
+        <Loader2 className="size-6 animate-spin text-secondary-foreground" />
       </div>
     );
   }
@@ -154,7 +154,7 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-              <p className="mt-2 text-muted-foreground">
+              <p className="mt-2 text-secondary-foreground">
                 Welcome back, {session.user.name || session.user.email}.
               </p>
             </div>
@@ -195,7 +195,7 @@ export default function DashboardPage() {
                     : "No purchase"}
                 </Badge>
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-secondary-foreground">
                 {hasActivePurchase
                   ? hasLifetime && !sub
                     ? "You have lifetime access. Enjoy all themes and features forever."
@@ -209,7 +209,7 @@ export default function DashboardPage() {
                 <div className="my-6 h-px bg-linear-to-r from-transparent via-border to-transparent" />
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div className="space-y-1">
-                    <div className="flex items-center gap-1.5 text-muted-foreground">
+                    <div className="flex items-center gap-1.5 text-secondary-foreground">
                       <CreditCard className="size-3.5" />
                       Amount
                     </div>
@@ -220,14 +220,14 @@ export default function DashboardPage() {
                     </p>
                   </div>
                   <div className="space-y-1">
-                    <div className="flex items-center gap-1.5 text-muted-foreground">
+                    <div className="flex items-center gap-1.5 text-secondary-foreground">
                       <RefreshCw className="size-3.5" />
                       Status
                     </div>
                     <p className="font-medium capitalize text-foreground">{subStatus ?? "—"}</p>
                   </div>
                   <div className="space-y-1">
-                    <div className="flex items-center gap-1.5 text-muted-foreground">
+                    <div className="flex items-center gap-1.5 text-secondary-foreground">
                       <CalendarDays className="size-3.5" />
                       Current period
                     </div>
@@ -236,7 +236,7 @@ export default function DashboardPage() {
                     </p>
                   </div>
                   <div className="space-y-1">
-                    <div className="flex items-center gap-1.5 text-muted-foreground">
+                    <div className="flex items-center gap-1.5 text-secondary-foreground">
                       <CalendarDays className="size-3.5" />
                       Subscribed since
                     </div>
@@ -251,7 +251,7 @@ export default function DashboardPage() {
                 <div className="my-6 h-px bg-linear-to-r from-transparent via-border to-transparent" />
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div className="space-y-1">
-                    <div className="flex items-center gap-1.5 text-muted-foreground">
+                    <div className="flex items-center gap-1.5 text-secondary-foreground">
                       <Infinity className="size-3.5" />
                       Plan
                     </div>
@@ -261,7 +261,7 @@ export default function DashboardPage() {
                     </p>
                   </div>
                   <div className="space-y-1">
-                    <div className="flex items-center gap-1.5 text-muted-foreground">
+                    <div className="flex items-center gap-1.5 text-secondary-foreground">
                       <CreditCard className="size-3.5" />
                       Amount paid
                     </div>
@@ -270,7 +270,7 @@ export default function DashboardPage() {
                     </p>
                   </div>
                   <div className="space-y-1">
-                    <div className="flex items-center gap-1.5 text-muted-foreground">
+                    <div className="flex items-center gap-1.5 text-secondary-foreground">
                       <Check className="size-3.5" />
                       Status
                     </div>
@@ -296,7 +296,7 @@ export default function DashboardPage() {
                     </code>
                   </div>
                 ) : (
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-secondary-foreground">
                     Your license key will appear here once processed. Check the
                     Polar portal for details.
                   </p>

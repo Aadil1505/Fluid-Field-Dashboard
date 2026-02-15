@@ -19,7 +19,7 @@ export default function NotFound() {
             <h1 className="text-2xl font-bold tracking-tight text-foreground">
               Page not found
             </h1>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-secondary-foreground">
               The page you&apos;re looking for doesn&apos;t exist or has been
               moved.
             </p>

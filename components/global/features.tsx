@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import { LiquidGlassCard } from "@/components/kokonutui/liquid-glass-card";
 import {
   Monitor,
   MousePointerClick,
@@ -8,6 +9,10 @@ import {
   Palette,
   Zap,
   SlidersHorizontal,
+  Keyboard,
+  AppWindow,
+  Film,
+  KeyRound,
 } from "lucide-react";
 
 const features = [
@@ -41,6 +46,31 @@ const features = [
     title: "Granular customization",
     description: "Fine-tune colors, speed, density, and more.",
   },
+  {
+    icon: Keyboard,
+    title: "Global pause shortcut",
+    description: "Pause or resume wallpapers instantly from anywhere on macOS.",
+  },
+  {
+    icon: Monitor,
+    title: "Per-display controls",
+    description: "Enable or disable MotionDesk on specific monitors individually.",
+  },
+  {
+    icon: Film,
+    title: "Video wallpaper mode",
+    description: "Use your own videos as animated wallpapers with playback controls.",
+  },
+  {
+    icon: AppWindow,
+    title: "Menu bar quick controls",
+    description: "Switch themes, toggle autopilot, and change appearance from the menu bar.",
+  },
+  {
+    icon: KeyRound,
+    title: "License key activation",
+    description: "Secure activation and validation flow with account-linked licensing.",
+  },
 ];
 
 export default function Features() {
@@ -61,12 +91,12 @@ export default function Features() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mt-3 text-center text-muted-foreground"
+          className="mt-3 text-center text-secondary-foreground"
         >
           A wallpaper engine for your Mac that actually feels good.
         </motion.p>
 
-        <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 flex flex-wrap justify-center gap-8">
           {features.map((feature, i) => (
             <motion.div
               key={feature.title}
@@ -74,15 +104,22 @@ export default function Features() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="space-y-3"
+              className="w-full max-w-sm sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.35rem)]"
             >
-              <div className="flex size-10 items-center justify-center rounded-lg bg-muted">
-                <feature.icon className="size-5 text-foreground" />
-              </div>
-              <h3 className="font-semibold">{feature.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {feature.description}
-              </p>
+              <LiquidGlassCard
+                glassSize="lg"
+                className="h-full rounded-3xl border border-border/60 bg-linear-to-br from-primary-foreground to-bg-card shadow-xl"
+              >
+                <div className="space-y-3">
+                  <div className="flex size-10 items-center justify-center rounded-lg bg-muted">
+                    <feature.icon className="size-5 text-foreground" />
+                  </div>
+                  <h3 className="font-extrabold">{feature.title}</h3>
+                  <p className="text-sm text-secondary-foreground leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
+              </LiquidGlassCard>
             </motion.div>
           ))}
         </div>

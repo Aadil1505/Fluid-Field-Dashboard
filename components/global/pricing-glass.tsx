@@ -66,7 +66,7 @@ export default function PricingGlass() {
           className="text-center"
         >
           <h2 className="text-3xl font-bold tracking-tight">Simple Pricing</h2>
-          <p className="mt-3 text-muted-foreground">
+          <p className="mt-3 text-secondary-foreground">
             Start free, upgrade to unlock all themes.
           </p>
         </motion.div>
@@ -91,7 +91,7 @@ export default function PricingGlass() {
                       Free
                     </h3>
                   </div>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-secondary-foreground">
                     Full access to the Contour & Magnetic Field theme. All features included.
                   </p>
                   <div className="pt-2">
@@ -99,7 +99,7 @@ export default function PricingGlass() {
                     <span className="text-4xl font-bold text-foreground">
                       $0
                     </span>
-                    <span className="ml-1 text-muted-foreground">Forever</span>
+                    <span className="ml-1 text-secondary-foreground">Forever</span>
                   </div>
                 </div>
 
@@ -114,7 +114,7 @@ export default function PricingGlass() {
                       className={`flex items-center gap-3 text-sm ${
                         feature.included
                           ? "text-foreground"
-                          : "text-muted-foreground/50"
+                          : "text-secondary-foreground/50"
                       }`}
                     >
                       {feature.included ? (
@@ -164,12 +164,12 @@ export default function PricingGlass() {
                       Monthly
                     </h3>
                   </div>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-secondary-foreground">
                     Full access to every theme and feature.
                   </p>
                   <div className="pt-2">
                     <div className="flex items-center gap-2">
-                      <span className="text-lg text-muted-foreground line-through">
+                      <span className="text-lg text-secondary-foreground line-through">
                         $9.99
                       </span>
                       <Badge className="bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/20">
@@ -179,7 +179,7 @@ export default function PricingGlass() {
                     <span className="text-4xl font-bold text-foreground">
                       $3.49
                     </span>
-                    <span className="ml-1 text-muted-foreground">Per Month</span>
+                    <span className="ml-1 text-secondary-foreground">Per Month</span>
                   </div>
                 </div>
 
@@ -231,12 +231,12 @@ export default function PricingGlass() {
                       Lifetime
                     </h3>
                   </div>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-secondary-foreground">
                     Pay once, own forever.
                   </p>
                   <div className="pt-2">
                     <div className="flex items-center gap-2">
-                      <span className="text-lg text-muted-foreground line-through">
+                      <span className="text-lg text-secondary-foreground line-through">
                         $39.99
                       </span>
                       <Badge className="bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/20">
@@ -246,7 +246,7 @@ export default function PricingGlass() {
                     <span className="text-4xl font-bold text-foreground">
                       $19.99
                     </span>
-                    <span className="ml-1 text-muted-foreground">One Time</span>
+                    <span className="ml-1 text-secondary-foreground">One Time</span>
                   </div>
                 </div>
 

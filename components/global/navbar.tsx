@@ -40,12 +40,12 @@ export default function Navbar() {
       <FloatingNav
         navItems={navItems}
         themeSlot={
-          <AnimatedThemeToggler className="text-muted-foreground hover:text-muted-foreground/80 p-2 rounded-full hover:bg-muted transition-colors [&>svg]:size-4" />
+          <AnimatedThemeToggler className="text-secondary-foreground hover:text-secondary-foreground/80 p-2 rounded-full hover:bg-muted transition-colors [&>svg]:size-4" />
         }
         authSlot={
           <Link
             href={session ? "/dashboard" : "/auth/sign-in"}
-            className="flex items-center justify-center size-8 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+            className="flex items-center justify-center size-8 rounded-full text-secondary-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
           >
             <User className="size-4" />
           </Link>
@@ -65,7 +65,7 @@ export default function Navbar() {
               <DownloadButton source="navbar_floating" />
               <button
                 onClick={() => setDismissed(true)}
-                className="flex items-center justify-center size-8 rounded-full bg-muted/80 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                className="flex items-center justify-center size-8 rounded-full bg-muted/80 text-secondary-foreground hover:text-foreground hover:bg-muted transition-colors"
                 aria-label="Dismiss download button"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>

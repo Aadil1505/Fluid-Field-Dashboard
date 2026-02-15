@@ -34,7 +34,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground"
+        className="text-sm font-semibold uppercase tracking-[0.2em] text-secondary-foreground"
       >
         MotionDesk
       </motion.p>
@@ -44,7 +44,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.15 }}
-        className="mt-4 max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
+        className="mt-4 max-w-2xl text-4xl font-bold sm:text-5xl lg:text-6xl tracking-tight"
       >
         A <AuroraText colors={["#f8f8f8", "#90D5FF"]}>Premium</AuroraText> Feel For Your Mac.
       </motion.h1>
@@ -54,7 +54,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.25 }}
-        className="mt-5 max-w-lg text-base sm:text-lg text-muted-foreground leading-relaxed"
+        className="mt-5 max-w-lg text-base sm:text-lg text-secondary-foreground leading-relaxed"
       >
         <AuroraText className="font-semibold" colors={["#f8f8f8", "#90D5FF"]}>
           Highly-customizable,
