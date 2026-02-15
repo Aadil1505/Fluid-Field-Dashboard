@@ -62,7 +62,7 @@ export default function Navbar() {
             className="pointer-events-none fixed inset-x-0 bottom-10 hidden sm:flex items-center justify-end px-6 z-5000 sm:px-10"
           >
             <div className="pointer-events-auto flex items-center gap-2">
-              <DownloadButton />
+              <DownloadButton source="navbar_floating" />
               <button
                 onClick={() => setDismissed(true)}
                 className="flex items-center justify-center size-8 rounded-full bg-muted/80 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"

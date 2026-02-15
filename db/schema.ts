@@ -84,6 +84,29 @@ export const feedback = pgTable("feedback", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+export const downloadEvent = pgTable(
+  "download_event",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id").references(() => user.id, { onDelete: "set null" }),
+    email: text("email"),
+    source: text("source").notNull(),
+    platform: text("platform").notNull().default("macos"),
+    releaseChannel: text("release_channel").notNull().default("stable"),
+    appVersion: text("app_version"),
+    ipAddress: text("ip_address"),
+    userAgent: text("user_agent"),
+    referrer: text("referrer"),
+    isBot: boolean("is_bot").notNull().default(false),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => [
+    index("download_event_user_id_idx").on(table.userId),
+    index("download_event_created_at_idx").on(table.createdAt),
+    index("download_event_source_idx").on(table.source),
+  ],
+);
+
 export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
@@ -109,6 +132,7 @@ export const schema = {
   account,
   verification,
   feedback,
+  downloadEvent,
   userRelations,
   sessionRelations,
   accountRelations,

@@ -3,8 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const DOWNLOAD_URL = process.env.NEXT_PUBLIC_DOWNLOAD_URL ?? "#";
-
 const AppleIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 225 225" fill="currentColor" className={className}>
     <path d="m108,35 c5.587379,-6.7633 9.348007,-16.178439 8.322067,-25.546439 c-8.053787,0.32369 -17.792625,5.36682 -23.569427,12.126399 c-5.177124,5.985922 -9.711121,15.566772 -8.48777,24.749359 c8.976891,0.69453 18.147476,-4.561718 23.73513,-11.329308" />
@@ -18,6 +16,9 @@ interface DownloadButtonProps {
   size?: "default" | "sm" | "lg";
   className?: string;
   label?: string;
+  source?: string;
+  channel?: "stable" | "beta";
+  version?: string;
 }
 
 export default function DownloadButton({
@@ -25,12 +26,23 @@ export default function DownloadButton({
   size = "lg",
   className,
   label = "Download for macOS",
+  source = "unknown",
+  channel = "stable",
+  version,
 }: DownloadButtonProps) {
+  const params = new URLSearchParams({
+    source,
+    platform: "macos",
+    channel,
+  });
+  if (version) {
+    params.set("version", version);
+  }
+
   return (
     <Button variant={variant} size={size} asChild className={cn(className)}>
       <a
-        href={DOWNLOAD_URL}
-        download
+        href={`/api/download?${params.toString()}`}
         className="flex items-center justify-center"
       >
         {label}

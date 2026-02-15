@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../ui/button";
 
@@ -17,7 +17,9 @@ export default function AuthForm({
   mode: "sign-in" | "sign-up";
 }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const isSignUp = mode === "sign-up";
+  const checkoutSlug = searchParams.get("checkout");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -50,6 +52,18 @@ export default function AuthForm({
           return;
         }
       }
+
+      if (checkoutSlug) {
+        const { error } = await authClient.checkout({
+          slug: checkoutSlug,
+        });
+        if (error) {
+          setError(error.message ?? "Unable to start checkout");
+          return;
+        }
+        return;
+      }
+
       router.push("/dashboard");
       router.refresh();
     } catch {
@@ -133,7 +147,7 @@ export default function AuthForm({
                 <>
                   Already have an account?{" "}
                   <Link
-                    href="/auth/sign-in"
+                    href={checkoutSlug ? `/auth/sign-in?checkout=${encodeURIComponent(checkoutSlug)}` : "/auth/sign-in"}
                     className="font-medium text-foreground underline underline-offset-4"
                   >
                     Sign in
@@ -143,7 +157,7 @@ export default function AuthForm({
                 <>
                   Don&apos;t have an account?{" "}
                   <Link
-                    href="/auth/sign-up"
+                    href={checkoutSlug ? `/auth/sign-up?checkout=${encodeURIComponent(checkoutSlug)}` : "/auth/sign-up"}
                     className="font-medium text-foreground underline underline-offset-4"
                   >
                     Sign up

@@ -9,6 +9,7 @@ import { authClient } from "@/lib/auth-client";
 import { Check, X } from "lucide-react";
 import { motion } from "motion/react";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 const features = [
   "All 10+ visualization themes",
@@ -29,13 +30,26 @@ const freeFeatures = [
 ];
 
 export default function PricingGlass() {
+  const router = useRouter();
+  const { data: session } = authClient.useSession();
+
   const handleCheckout = async () => {
+    if (!session) {
+      router.push("/auth/sign-up?checkout=Motion-Desk-Monthly");
+      return;
+    }
+
     await authClient.checkout({
       slug: "Motion-Desk-Monthly",
     });
   };
 
   const handleLifetimeCheckout = async () => {
+    if (!session) {
+      router.push("/auth/sign-up?checkout=Motion-Desk-Lifetime");
+      return;
+    }
+
     await authClient.checkout({
       slug: "Motion-Desk-Lifetime",
     });
@@ -123,6 +137,7 @@ export default function PricingGlass() {
                     variant="outline"
                     size="default"
                     label="Download Free"
+                    source="pricing_free"
                     className="rounded-full w-full"
                   />
                 </div>

@@ -75,7 +75,7 @@ export default function Hero() {
         transition={{ duration: 0.6, delay: 0.35 }}
         className="mt-8 flex gap-4"
       >
-        <DownloadButton />
+        <DownloadButton source="hero" />
         <Button variant="outline" size="lg" asChild>
           <Link href="/#showcase">Watch it move</Link>
         </Button>
